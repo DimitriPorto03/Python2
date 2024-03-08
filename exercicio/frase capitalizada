@@ -1,3 +1,3 @@
-frase = imput("Digite uma frase: ")
+frase = input("Digite uma frase: ")
 frase_capitalizada = frase.capitalize()
 print("Frase capitalizada: ", frase_capitalizada
