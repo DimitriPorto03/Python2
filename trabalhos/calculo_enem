@@ -5,10 +5,14 @@ humanas = int(input("Digite a sua nota em ciências humanas: "))
 redacao = int(input("Digite a sua nota na redação: "))
 
 media = (matematica+linguagens+natureza+humanas+redacao)/5
-if media<0 and media>1000:
+resposta = " "
+while not != "sair":
+
+if matematica<0 or matematica>1000 or linguagens<0 or linguagens>1000 or natureza<0 or natureza>1000 or humanas<0 or humanas>1000 or redacao<0 or redacao>1000:
     print("Sua nota não é válida para aprovação.")
+
+elif media>=450 and redacao>=0:
+    print("Parabéns! Você passou para participar do Prouni e do Fies.")
+    
 else:
-    if media>=450 and redacao>0:
-        print("Parabèns! Você passou para participar do Prouni e do Fies.")
-    else:
-        print("Infelizmente você não passou para participar do Prouni e do Fies.")
+    print("Infelizmente você não passou para participar do Prouni e do Fies.")
