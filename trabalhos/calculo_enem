@@ -13,18 +13,15 @@ humanas = int(input("Digite a sua nota em ciências humanas: "))
 redacao = int(input("Digite a sua nota na redação: "))
 media = (matematica+linguagens+natureza+humanas+redacao)/5
 
-resposta = " "
-while not resposta == "sair":
-    
-   
-    if matematica<0 or matematica>1000 or linguagens<0 or linguagens>1000 or natureza<0 or natureza>1000 or humanas<0 or humanas>1000 or redacao<0 or redacao>1000:
+if matematica<0 or matematica>1000 or linguagens<0 or linguagens>1000 or natureza<0 or natureza>1000 or humanas<0 or humanas>1000 or redacao<0 or redacao>1000:
         print("Sua nota não é válida para aprovação.")
-        a = inserirDados()
     
-    elif media>=450 and redacao>=0:
-        print("Parabéns! Você passou para participar do Prouni e do Fies.")
-        a = inserirDados()
+elif media>=450 and redacao>=0:
+    print("Parabéns! Você passou para participar do Prouni e do Fies.")
         
-    else:
-        print("Infelizmente você não passou para participar do Prouni e do Fies.")
-        a = inserirDados()
+else:
+    print("Infelizmente você não passou para participar do Prouni e do Fies.")
+
+resposta = input("Você deseja sair do programa?")
+while resposta != "sim":
+    a = inserirDados()
