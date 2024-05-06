@@ -1,9 +1,34 @@
 import sqlite3 
-# Conectar ao banco de dados
+
+# Conectar ao banco de dados (se não existir, será criado)
+conn = sqlite3.connect('dados_alunos.db')
+cursor = conn.cursor()
+
+# Criar uma tabela se não existir
+def criar_tabela_alunos(conexao):
+    cursor = conexao.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS alunos (
+            id INTEGER PRIMARY KEY,
+            Linguagens REAL,
+            Humanas REAL,
+            Natureza REAL,
+            Matemática REAL,
+            Redação REAL,
+            media REAL,
+            status TEXT
+        )
+    ''')
+    conexao.commit()
+
+def salvar_alunos_banco(conexao, notas, media, status):
+    cursor = conexao.cursor()
+    cursor.execute("INSERT INTO alunos (Linguagens, Humanas, Natureza, Matemática, Redação, media, status) VALUES (?, ?, ?, ?, ?, ?, ?)", (notas[0], notas[1], notas[2], notas[3], notas[4], media, status))
+    conexao.commit()
 
 def calcular_media_enem():
     notas = []
-    areas_conhecimento = ["Linguagens", "Humanas", "Natureza", "Matematica", "Redacao"]
+    areas_conhecimento = ["Linguagens", "Humanas", "Natureza", "Matemática", "Redação"]
 
     for area in areas_conhecimento:
         nota = float(input(f"Digite a nota de {area}: "))
@@ -20,21 +45,18 @@ def calcular_media_enem():
     status = "Aprovado" if media >= 450 else "Reprovado"
     mensagem = f"Sua média final no ENEM é: {media:.2f}\nStatus: {status}"
 
+    salvar_alunos_banco(conn, notas, media, status)  # Salvando dados no banco de dados
     print(mensagem)
 
 def calcular_media(notas):
     total = sum(notas)
     return total / len(notas)
 
+# Chamada para criar a tabela de alunos
+criar_tabela_alunos(conn)
+
+# Chamada para calcular a média do ENEM e salvar os dados no banco de dados
 calcular_media_enem()
-
-# Conectar ao banco de dados (se não existir, será criado)
-conn = sqlite3.connect('dados_usuarios.db')
-cursor = conn.cursor()
-
-# Criar uma tabela se não existir
-cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios
-                  (id INTEGER PRIMARY KEY AUTOINCREMENT, notas[] INT, media REAL, status TEXT)''')
 
 # Fechar a conexão com o banco de dados
 conn.close()
